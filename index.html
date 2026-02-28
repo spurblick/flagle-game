@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flagle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Flagle</h1>
+      <label id="hard-mode-toggle">
+        <input type="checkbox" id="hard-mode-cb">
+        <span>Ohne Flaggen-Vorschau</span>
+      </label>
+    </header>
+
+    <main>
+      <!-- Banner shown on win/lose -->
+      <div id="banner" class="banner hidden"></div>
+
+      <!-- Flag reveal canvas -->
+      <div id="flag-container">
+        <canvas id="flag-canvas" width="640" height="480"></canvas>
+      </div>
+
+      <!-- Guess rows -->
+      <div id="guesses">
+        <div class="guess-row empty"><span class="guess-name"></span><span class="guess-pct"></span><span class="guess-thumb"></span></div>
+        <div class="guess-row empty"><span class="guess-name"></span><span class="guess-pct"></span><span class="guess-thumb"></span></div>
+        <div class="guess-row empty"><span class="guess-name"></span><span class="guess-pct"></span><span class="guess-thumb"></span></div>
+        <div class="guess-row empty"><span class="guess-name"></span><span class="guess-pct"></span><span class="guess-thumb"></span></div>
+        <div class="guess-row empty"><span class="guess-name"></span><span class="guess-pct"></span><span class="guess-thumb"></span></div>
+        <div class="guess-row empty"><span class="guess-name"></span><span class="guess-pct"></span><span class="guess-thumb"></span></div>
+      </div>
+
+      <!-- Input area (hidden after game ends) -->
+      <div id="input-area">
+        <div id="search-wrapper">
+          <input type="text" id="country-input" placeholder="Land eingeben" autocomplete="off">
+          <div id="dropdown" class="dropdown hidden"></div>
+        </div>
+        <button id="guess-btn">RATEN</button>
+      </div>
+
+      <!-- Countdown shown after game ends -->
+      <div id="countdown-area" class="hidden">
+        <span id="countdown"></span>
+      </div>
+    </main>
+
+    <!-- Palette info footer -->
+    <footer id="palette-footer">
+      <div id="palette-swatches"></div>
+      <p>
+        Für den Farbvergleich werden alle Flaggen auf eine gemeinsame Palette
+        von 16 Farben reduziert. Dadurch können einzelne Flaggen leicht von
+        den Originalfarben abweichen oder kleine Artefakte aufweisen.
+        Alle Flaggen werden im Format 4:3 dargestellt und wurden
+        entsprechend angepasst.
+      </p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

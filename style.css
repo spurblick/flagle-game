@@ -1,0 +1,322 @@
+/* ── Reset & base ──────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #111827;
+  color: #e5e7eb;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+#app {
+  width: 100%;
+  max-width: 540px;
+  padding: 0 16px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
+
+header {
+  width: 100%;
+  text-align: center;
+  padding: 16px 0 12px;
+  border-bottom: 1px solid #374151;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #f9fafb;
+}
+
+/* ── Hard-mode toggle ──────────────────────────────────────────────────────── */
+
+#hard-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  user-select: none;
+}
+
+#hard-mode-toggle input {
+  accent-color: #6366f1;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+#hard-mode-toggle:hover { color: #e5e7eb; }
+
+/* When active: hide all flag thumbnails */
+#app.hide-thumbs .guess-thumb img,
+#app.hide-thumbs .dropdown-item img { display: none; }
+
+#app.hide-thumbs .guess-row {
+  grid-template-columns: 1fr 64px;
+}
+
+#app.hide-thumbs .guess-thumb { display: none; }
+
+/* ── Banner (win / lose) ───────────────────────────────────────────────────── */
+
+.banner {
+  padding: 8px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  text-align: center;
+  animation: pop-in 0.35s ease-out;
+}
+
+.banner.win  { background: #16a34a; color: #fff; }
+.banner.lose { background: #dc2626; color: #fff; }
+
+.hidden { display: none !important; }
+
+@keyframes pop-in {
+  0%   { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Flag canvas ───────────────────────────────────────────────────────────── */
+
+#flag-container {
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 4 / 3;
+  border: 2px solid #374151;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: #1f2937;
+}
+
+#flag-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: auto;
+}
+
+/* ── Guess rows ────────────────────────────────────────────────────────────── */
+
+#guesses {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.guess-row {
+  display: grid;
+  grid-template-columns: 1fr 64px 52px;
+  align-items: center;
+  height: 44px;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  padding: 0 10px;
+  background: #1f2937;
+  transition: background 0.25s;
+}
+
+.guess-row.filled { background: #1e293b; }
+
+.guess-row.correct {
+  border-color: #16a34a;
+  background: #14532d;
+}
+
+.guess-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.guess-pct {
+  font-size: 0.85rem;
+  text-align: center;
+  color: #9ca3af;
+}
+
+.guess-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guess-thumb img {
+  width: 40px;
+  height: 30px;
+  border-radius: 2px;
+  border: 1px solid #4b5563;
+}
+
+/* ── Input area ────────────────────────────────────────────────────────────── */
+
+#input-area {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+#search-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+#country-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  background: #1f2937;
+  color: #e5e7eb;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#country-input:focus { border-color: #6366f1; }
+
+#country-input::placeholder { color: #6b7280; }
+
+#guess-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border: none;
+  border-radius: 4px;
+  background: #6366f1;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+#guess-btn:hover { background: #4f46e5; }
+#guess-btn:disabled { background: #374151; color: #6b7280; cursor: default; }
+
+/* ── Dropdown ──────────────────────────────────────────────────────────────── */
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  z-index: 100;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.dropdown-item:hover,
+.dropdown-item.active {
+  background: #374151;
+}
+
+.dropdown-item img {
+  width: 32px;
+  height: 24px;
+  border-radius: 2px;
+  border: 1px solid #4b5563;
+  flex-shrink: 0;
+}
+
+.dropdown-item span {
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Countdown ─────────────────────────────────────────────────────────────── */
+
+#countdown-area {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+}
+
+#countdown {
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #f9fafb;
+  letter-spacing: 0.06em;
+}
+
+/* ── Palette footer ────────────────────────────────────────────────────────── */
+
+#palette-footer {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid #1f2937;
+  text-align: center;
+}
+
+#palette-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+#palette-swatches .swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  border: 1px solid #4b5563;
+}
+
+#palette-footer p {
+  font-size: 0.78rem;
+  color: #6b7280;
+  line-height: 1.5;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* ── Scrollbar (dropdown) ──────────────────────────────────────────────────── */
+
+.dropdown::-webkit-scrollbar { width: 6px; }
+.dropdown::-webkit-scrollbar-track { background: transparent; }
+.dropdown::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 3px; }
